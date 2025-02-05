@@ -20,6 +20,12 @@ mongoose.connect(process.env.MONGO_URI)
 app.use('/api/auth', authRoutes);
 app.use('/api/inventory', inventoryRoutes);
 
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+
+
 app.get('/', (req, res) => {
     res.send('Backend is working');
 });

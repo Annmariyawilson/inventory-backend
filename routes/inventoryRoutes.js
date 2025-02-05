@@ -5,7 +5,7 @@ const {
   addItem,
   editItem,
   deleteItem,
-} = require("../controllers/inventoryController.js").default;
+} = require("../controllers/inventoryController.js");
 
 router.get("/", getAllItems);
 router.post("/", addItem);
