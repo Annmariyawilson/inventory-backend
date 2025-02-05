@@ -1,19 +1,19 @@
-import express from 'express';
-import { connect } from 'mongoose';
-import cors from 'cors';
-import bodyParser from 'express.json';
-import { config } from 'dotenv';
-import authRoutes from './routes/authRoutes';
-import inventoryRoutes from './routes/inventoryRoutes';
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('express').json;
+const dotenv = require('dotenv');
+const authRoutes = require('./routes/authRoutes');
+const inventoryRoutes = require('./routes/inventoryRoutes');
 
-config();
+dotenv.config();
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser());
 
-connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error('MongoDB connection error:', err));
 
@@ -24,4 +24,4 @@ app.get('/', (req, res) => {
     res.send('Backend is working');
 });
 
-export default app; 
+module.exports = app;
