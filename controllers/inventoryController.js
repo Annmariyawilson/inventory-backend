@@ -1,9 +1,9 @@
-const Inventory = require("../models/Inventory");
+import Inventory, { find, findByIdAndUpdate, findByIdAndDelete } from "../models/Inventory";
 
 // Get all items
 const getAllItems = async (req, res) => {
   try {
-    const items = await Inventory.find();
+    const items = await find();
     res.json(items);
   } catch (err) {
     res.status(500).send("Server error");
@@ -28,7 +28,7 @@ const editItem = async (req, res) => {
   const { name, category, quantity } = req.body;
   
   try {
-    const updatedItem = await Inventory.findByIdAndUpdate(id, { name, category, quantity }, { new: true });
+    const updatedItem = await findByIdAndUpdate(id, { name, category, quantity }, { new: true });
     res.json(updatedItem);
   } catch (err) {
     res.status(500).send("Server error");
@@ -39,11 +39,11 @@ const editItem = async (req, res) => {
 const deleteItem = async (req, res) => {
   const { id } = req.params;
   try {
-    await Inventory.findByIdAndDelete(id);
+    await findByIdAndDelete(id);
     res.json({ msg: "Item deleted" });
   } catch (err) {
     res.status(500).send("Server error");
   }
 };
 
-module.exports = { getAllItems, addItem, editItem, deleteItem };
+export default { getAllItems, addItem, editItem, deleteItem };
